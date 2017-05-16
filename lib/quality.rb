@@ -1,6 +1,6 @@
 class Quality
 
   def is_degrating?(item)
-    item.name == "Elixir of the Mongoose"
+    item.name !~ /^[ABS]/
   end
 end
