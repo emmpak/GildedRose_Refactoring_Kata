@@ -3,6 +3,7 @@ require 'gilded_rose'
 describe GildedRose do
   let(:elixir) { Item.new(name="Elixir of the Mongoose", sell_in=5, quality=10) }
   let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=49) }
+  let(:sulfuras) { Item.new(name="Sulfurus", sell_in=10, quality=30) }
   let(:items) { [elixir, brie] }
   subject(:gilded_rose) { described_class.new(items) }
 
@@ -33,5 +34,14 @@ describe GildedRose do
       gilded_rose.update_quality
       expect { gilded_rose.update_quality }.not_to change { brie.quality }
     end
+  end
+
+  context 'sulfuras' do
+
+    it 'sell_in value and quality do not decrease with time' do
+      expect { gilded_rose.update_quality }.not_to change { sulfuras.quality }
+      expect { gilded_rose.update_quality }.not_to change { sulfuras.sell_in }
+    end
+
   end
 end
