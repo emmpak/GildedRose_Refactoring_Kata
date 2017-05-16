@@ -59,5 +59,11 @@ describe GildedRose do
       6.times { gilded_rose.update_quality }
       expect { gilded_rose.update_quality }.to change { concert.quality }.by 3
     end
+
+    it 'quality drops to 0 when sell by date has already passed' do
+      12.times { gilded_rose.update_quality }
+      p concert.sell_in
+      expect(concert.quality).to eq 0
+    end
   end
 end
