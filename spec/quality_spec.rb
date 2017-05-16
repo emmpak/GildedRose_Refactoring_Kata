@@ -6,9 +6,9 @@ describe Quality do
   let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=35) }
   let(:sulfuras) { Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20) }
   let(:concert) { Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)}
-  subject(:quality) { described_class.new }
+  subject(:quality) { described_class }
 
-  describe '#is_degrating?' do
+  describe '.is_degrating?' do
     context 'item quality is degrating with time if' do
       it 'is not special' do
         expect(quality.is_degrating?(elixir)).to eq true
@@ -30,6 +30,12 @@ describe Quality do
       it 'is Sulfuras' do
         expect(quality.is_degrating?(sulfuras)).to eq false
       end
+    end
+  end
+
+  describe '#update' do
+    it 'decreases if regular item' do
+      expect { quality.update(elixir) }.to change { elixir.quality }.by 1
     end
   end
 end
