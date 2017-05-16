@@ -2,7 +2,7 @@ require 'gilded_rose'
 
 describe GildedRose do
   let(:elixir) { Item.new(name="Elixir of the Mongoose", sell_in=5, quality=10) }
-  let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=49) }
+  let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=35) }
   let(:sulfuras) { Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20) }
   let(:concert) { Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)}
   let(:items) { [elixir, brie, sulfuras, concert] }
@@ -31,8 +31,13 @@ describe GildedRose do
       expect { gilded_rose.update_quality }.to change { brie.quality }.by 1
     end
 
+    it 'quality increases by 2 once the sell by date has passed' do
+      10.times { gilded_rose.update_quality }
+      expect { gilded_rose.update_quality }.to change { brie.quality }.by 2
+    end
+
     it 'cannot have a quality value of more than 50' do
-      gilded_rose.update_quality
+      15.times { gilded_rose.update_quality }
       expect { gilded_rose.update_quality }.not_to change { brie.quality }
     end
   end
@@ -46,6 +51,7 @@ describe GildedRose do
   end
 
   context 'Backstage passes' do
+
     it 'quality increase with time' do
       expect { gilded_rose.update_quality}.to change { concert.quality }.by 1
     end
@@ -62,7 +68,6 @@ describe GildedRose do
 
     it 'quality drops to 0 when sell by date has already passed' do
       12.times { gilded_rose.update_quality }
-      p concert.sell_in
       expect(concert.quality).to eq 0
     end
   end
