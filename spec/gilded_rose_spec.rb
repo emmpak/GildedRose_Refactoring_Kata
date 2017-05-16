@@ -4,7 +4,8 @@ describe GildedRose do
   let(:elixir) { Item.new(name="Elixir of the Mongoose", sell_in=5, quality=10) }
   let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=49) }
   let(:sulfuras) { Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=30) }
-  let(:items) { [elixir, brie, sulfuras] }
+  let(:concert) { Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=40)}
+  let(:items) { [elixir, brie, sulfuras, concert] }
   subject(:gilded_rose) { described_class.new(items) }
 
   context 'common features for the products' do
@@ -45,6 +46,12 @@ describe GildedRose do
   end
 
   context 'Backstage passes' do
-
+    it 'quality increase with time' do
+      expect { gilded_rose.update_quality}.to change { concert.quality }.by 1
+    end
+    it 'quality increases by 2 when there are 10 days left' do
+      gilded_rose.update_quality
+      expect { gilded_rose.update_quality }.to change { concert.quality }.by 2
+    end
   end
 end
