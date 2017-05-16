@@ -25,7 +25,8 @@ describe GildedRose do
     end
 
     it 'cannot have a quality value of more than 50' do
-      # expect { 2.times{ gilded_rose.update_quality } }.to change { elixir.quality }.by -1
+      gilded_rose.update_quality
+      expect { gilded_rose.update_quality }.not_to change { brie.quality }
     end
   end
 end
