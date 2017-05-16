@@ -9,6 +9,7 @@ describe Quality do
   subject(:quality) { described_class }
 
   describe '.is_degrading?' do
+
     context 'item quality is degrating with time if' do
       it 'is not special' do
         expect(quality.is_degrading?(elixir)).to eq true
@@ -34,9 +35,16 @@ describe Quality do
   end
 
   describe '#update' do
-    it 'decreases if regular item' do
-      quality.update(elixir)
-      expect { quality.update(elixir) }.to change { elixir.quality }.by -1
+    context 'regular item' do
+      it 'decreases by a specified amount' do
+        expect { quality.update(elixir, 1) }.to change { elixir.quality }.by -1
+      end
+    end
+
+    context 'special item' do
+      it 'increases by a specified amount' do
+        expect { quality.update(brie, 1) }.to change { brie.quality }.by 1
+      end
     end
   end
 end
