@@ -1,4 +1,5 @@
 class Concert
+  
   attr_reader :item
 
   def initialize(item)
