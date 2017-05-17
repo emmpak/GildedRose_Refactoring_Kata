@@ -1,3 +1,9 @@
+require_relative './item'
+require_relative './normal'
+require_relative './brie'
+require_relative './concert'
+require_relative './sulfuras'
+
 class GildedRose
 
   attr_reader :items
