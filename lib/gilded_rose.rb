@@ -3,6 +3,7 @@ require_relative './normal'
 require_relative './brie'
 require_relative './concert'
 require_relative './sulfuras'
+require_relative './conjured'
 
 class GildedRose
 
