@@ -6,22 +6,21 @@ class GildedRose
     @items = items
   end
 
-  def sulfuras_tick(item)
+  def klass_for(name)
+    case name
+    when "Aged Brie"
+      Brie
+    when "Sulfuras, Hand of Ragnaros"
+      Sulfuras
+    when "Backstage passes to a TAFKAL80ETC concert"
+      Concert
+    else
+      Normal
+    end
   end
 
   def update_quality
-    items.each do |item|
-      case item.name
-      when "Aged Brie"
-        Brie.new(item).tick
-      when "Sulfuras, Hand of Ragnaros"
-        sulfuras_tick(item)
-      when "Backstage passes to a TAFKAL80ETC concert"
-        Concert.new(item).tick
-      else
-        Normal.new(item).tick
-      end
-    end
+    items.each { |item| klass_for(item.name).new(item).tick }
   end
 end
 
