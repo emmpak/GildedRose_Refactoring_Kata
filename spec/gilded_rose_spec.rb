@@ -19,7 +19,7 @@ describe GildedRose do
       expect { gilded_rose.update_quality }.not_to change { elixir.quality }
     end
 
-    it 'qulity decreases by 2 with each day once the sell by date has passed' do
+    it 'quality decreases by 2 with each day once the sell by date has passed' do
       5.times { gilded_rose.update_quality }
       expect { gilded_rose.update_quality }.to change { elixir.quality }.by -2
     end
