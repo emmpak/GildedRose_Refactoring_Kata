@@ -6,8 +6,37 @@ class GildedRose
     @items = items
   end
 
+  def normal_tick(item)
+    item.sell_in -= 1
+    return if item.quality == 0
+    item.quality -= 1
+    item.quality -= 1 if item.sell_in <= 0
+  end
+
+  def brie_tick(item)
+    item.sell_in -= 1
+    return if item.quality >= 50
+    item.quality += 1
+    item.quality += 1 if item.sell_in <= 0
+  end
+
+  def sulfuras_tick(item)
+  end
+
   def update_quality()
     @items.each do |item|
+
+      case item.name
+      when 'Aged Brie'
+        return brie_tick(item)
+      else
+        return normal_tick(item)
+      end
+
+      # if item.name == 'Elixir of the Mongoose'
+      #   return normal_tick(item)
+      # end
+
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         item.quality = item.quality - 1 if item.quality > 0 && item.name != "Sulfuras, Hand of Ragnaros"
       else
