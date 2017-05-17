@@ -5,7 +5,7 @@ describe GildedRose do
   let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=35) }
   let(:sulfuras) { Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20) }
   let(:concert) { Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)}
-  let(:items) { [elixir, brie, sulfuras, concert] }
+  let(:items) { [elixir,brie,sulfuras,concert] }
   subject(:gilded_rose) { described_class.new(items) }
 
   context 'common features for the products' do
@@ -28,6 +28,7 @@ describe GildedRose do
   context 'Aged Brie' do
 
     it 'quality increases with time' do
+      gilded_rose.update_quality
       expect { gilded_rose.update_quality }.to change { brie.quality }.by 1
     end
 
