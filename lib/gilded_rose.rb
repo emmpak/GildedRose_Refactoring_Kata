@@ -25,6 +25,8 @@ private
       Sulfuras
     when "Backstage passes to a TAFKAL80ETC concert"
       Concert
+    when "Conjured"
+      Conjured
     else
       Normal
     end
