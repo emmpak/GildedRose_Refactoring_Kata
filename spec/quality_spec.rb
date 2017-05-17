@@ -2,7 +2,7 @@ require 'quality'
 
 describe Quality do
   let(:elixir) { Item.new(name="Elixir of the Mongoose", sell_in=5, quality=10) }
-  let(:vest) { Item.new(name="+5 Dexterity Vest", sell_in=10, quality=20) }
+  let(:vest) { Item.new(name="+5 Dexterity Vest", sell_in=10, quality=50) }
   let(:brie) { Item.new(name="Aged Brie", sell_in=10, quality=35) }
   let(:sulfuras) { Item.new(name="Sulfuras, Hand of Ragnaros", sell_in=10, quality=20) }
   let(:concert) { Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=11, quality=20)}
@@ -46,5 +46,16 @@ describe Quality do
         expect { quality.update(brie, 1) }.to change { brie.quality }.by 1
       end
     end
+  end
+
+  describe '.max?' do
+    it "returns true if quality has reached maxium amount of #{Quality::MAX}" do
+      expect(quality(vest)).to be_max
+      expect(quality(elixir)).not_to be_max
+    end
+  end
+
+  describe '.amount' do
+    
   end
 end
